@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Loan Calculator application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+
+<div class="jumbotron">
+    <h1>Loan Repayment Schedule</h1>
+    <p class="lead">
+    	For <span th:text="${loanType}"></span> Loan on <span th:text="${paybackSchemeType}"></span> payback scheme
+    </p>
+    <p class="lead">
+     $<span th:text="${paybackdto.getLoanAmount()}"></span> loan at <span th:text="${paybackdto.getInterestRate()*100}"></span> % interest rate with <span th:text="${paybackdto.getTermInMonths()}"></span> monthly payments.
+     </p>
+     <p class="lead">
+     	Loan amount due per month: $<span th:text="${paybackdto.getLoanAmountDuePerMonth()}"></span>
+     	<span th:if="${balloonAmount}">and a balloon payment of $<span th:text="${balloonAmount}"></span>
+    	</span>
+    </p>
+</div>
+<table class="table table-bordered">
+    <tr class="thead-dark">
+        <th>For month</th>
+        <th>Payment</th>
+        <th>Interest Component</th>
+        <th>Principal Component</th>
+        <th>Amount outstanding</th>    
+    </tr>
+    <tr th:each="item : ${paybackdto.getDisplayList()}">
+		<td th:text="${item.id}"></td>
+        <td th:text="${item.payment}"></td>
+        <td th:text="${item.interest}"></td>
+        <td th:text="${item.principalComponent}"></td>
+        <td th:text="${item.amountOutstanding}"></td>
+        
+
+    </tr>
+</table>
+	<p class="lead">   
+     	Total payment: $ <span th:text="${paybackdto.getTotalPayment()}"></span>. Total interest: $ <span th:text="${paybackdto.getTotalInterest()}"></span>
+    </p>
+</body>
+
+</html>

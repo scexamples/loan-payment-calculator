@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>Loan Calculator</title>
+		<meta name="viewport" content="width=device-width" />
+		<base href="/" />
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+		<link type="text/css" rel="stylesheet" href="style.css">   
+	</head>
+	<body>	
+		<main class="container text-center heading-top">		
+			<h1 class="display-5 fw-bold">Loan Calculator</h1>
+			<div class="col-lg-6 mx-auto">
+		    <p class="lead mb-4 margin-bottom">
+			This loan calculator will calculate the monthly payment schedule for different types of loans.
+			Enter the loan type, loan amount, duration, and payment scheme, then select Calculate.
+			</p>		
+		 	<main>
+			<div>            
+				<form th:attr="action=@{/display}" method="POST">
+		  			<div class="form-group">
+		    			<label for="loanTypeOpt" class="padding-bottom">Loan Type</label>
+					    <select class="form-select" name="loanTypeOpt">
+						    <option th:each="loanTypeOpt : ${T(com.example.loanpaymentcalculator.models.LoanType).values()}" 
+						        th:value="${loanTypeOpt}" th:text="${loanTypeOpt}"></option>
+						</select>
+		  			</div>
+		   			<div class="form-group">
+					    <label for="loanAmount" class="padding-bottom">Loan Amount</label>				    
+					    <input type="text" class="form-control" name="loanAmount" id="loanAmount">				    
+		  			</div>
+		  			<div class="form-group">
+					    <label for="termInMonths" class="padding-bottom">Term in Months</label>				    
+					    <input type="text" class="form-control" name="termInMonths" id="termInMonths">				    
+		  			</div>
+					<div class="form-group">
+						<label for="paybackSchemeTypeOpt" class="padding-bottom">Payback Scheme</label>				    
+						<select class="form-select" name="paybackSchemeTypeOpt">
+						<option th:each="paybackSchemeTypeOpt : ${T(com.example.loanpaymentcalculator.models.PaybackSchemeType).values()}" 
+						        th:value="${paybackSchemeTypeOpt}" th:text="${paybackSchemeTypeOpt}"></option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary margin-top">Calculate</button>
+				</form>
+			</div>     
+ 			</main>
+			</div>
+		</main>	
+	</body>
+</html>
